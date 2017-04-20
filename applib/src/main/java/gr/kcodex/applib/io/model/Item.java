@@ -1,4 +1,4 @@
-package gr.kcodex.daggermodules.io.model;
+package gr.kcodex.applib.io.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -6,10 +6,10 @@ import android.os.Parcelable;
 import com.bluelinelabs.logansquare.annotation.JsonField;
 import com.bluelinelabs.logansquare.annotation.JsonObject;
 
-import gr.kcodex.daggermodules.io.util.HtmlTextConverter;
+import gr.kcodex.applib.io.util.HtmlTextConverter;
 
 @JsonObject
-public class Story implements Parcelable {
+public class Item implements Parcelable {
 
     @JsonField
     public String by;
@@ -32,7 +32,7 @@ public class Story implements Parcelable {
     @JsonField
     public String url;
 
-    public Story() {
+    public Item() {
         this.by = "";
         this.descendants = 0;
         this.id = -1;
@@ -45,7 +45,7 @@ public class Story implements Parcelable {
         this.url = "";
     }
 
-    protected Story(Parcel in) {
+    protected Item(Parcel in) {
         this.by = in.readString();
         this.descendants = in.readInt();
         this.id = in.readInt();
@@ -72,15 +72,15 @@ public class Story implements Parcelable {
         dest.writeString(url);
     }
 
-    public static final Creator<Story> CREATOR = new Creator<Story>() {
+    public static final Creator<Item> CREATOR = new Creator<Item>() {
         @Override
-        public Story createFromParcel(Parcel in) {
-            return new Story(in);
+        public Item createFromParcel(Parcel in) {
+            return new Item(in);
         }
 
         @Override
-        public Story[] newArray(int size) {
-            return new Story[size];
+        public Item[] newArray(int size) {
+            return new Item[size];
         }
     };
 

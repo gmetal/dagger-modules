@@ -1,12 +1,10 @@
 package gr.kcodex.daggermodules.injection;
 
-import com.github.aurae.retrofit2.LoganSquareConverterFactory;
-
 import dagger.Module;
 import dagger.Provides;
-import gr.kcodex.daggermodules.io.HackerNewsService;
+import gr.kcodex.applib.io.HackerNewsServiceClient;
+import gr.kcodex.applib.io.injection.DependencyProvider;
 import okhttp3.OkHttpClient;
-import retrofit2.Retrofit;
 
 @Module
 public class NetworkModule {
@@ -20,21 +18,8 @@ public class NetworkModule {
     }
 
     @Provides
-    static Retrofit providesRetrofit(OkHttpClient okHttpClient) {
+    static HackerNewsServiceClient provideHackerNewsServiceClient(DependencyProvider dependencyProvider) {
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .addConverterFactory(LoganSquareConverterFactory.create())
-                .baseUrl("https://hacker-news.firebaseio.com/")
-                .client(okHttpClient)
-                .build();
-
-        return retrofit;
-    }
-
-    @Provides
-    static HackerNewsService providesHackerNewsService(Retrofit retrofit) {
-
-        HackerNewsService hackerNewsService = retrofit.create(HackerNewsService.class);
-        return hackerNewsService;
+        return new HackerNewsServiceClient(dependencyProvider);
     }
 }

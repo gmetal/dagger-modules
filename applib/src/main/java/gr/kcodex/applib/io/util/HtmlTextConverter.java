@@ -1,4 +1,4 @@
-package gr.kcodex.daggermodules.io.util;
+package gr.kcodex.applib.io.util;
 
 import android.text.Html;
 

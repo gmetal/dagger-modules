@@ -4,33 +4,20 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import gr.kcodex.daggermodules.io.HackerNewsService;
-import gr.kcodex.daggermodules.io.model.Story;
+import gr.kcodex.applib.io.HackerNewsServiceClient;
+import gr.kcodex.applib.io.model.Item;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class NewsListPresenter {
+public class NewsListPresenter extends BasePresenter {
 
-    private HackerNewsService mHackerNewsService;
-    private NewsListView mView;
+    private HackerNewsServiceClient mHackerNewsServiceClient;
 
     @Inject
-    NewsListPresenter(HackerNewsService hackerNewsService, NewsListView view) {
-        mHackerNewsService = hackerNewsService;
-        mView = view;
-    }
-
-    public void detachView(NewsListView view) {
-
-        if (mView == view) {
-            mView = null;
-        }
-    }
-
-    public boolean isViewAttached() {
-
-        return mView != null;
+    NewsListPresenter(HackerNewsServiceClient hackerNewsServiceClient, ItemsListView view) {
+        super(view);
+        mHackerNewsServiceClient = hackerNewsServiceClient;
     }
 
     public void loadData() {
@@ -41,15 +28,15 @@ public class NewsListPresenter {
 
         mView.showLoading();
 
-        mHackerNewsService.topStoryIds().enqueue(new Callback<List<String>>() {
+        mHackerNewsServiceClient.topStoryIds().enqueue(new Callback<List<String>>() {
             @Override
             public void onResponse(Call<List<String>> call, Response<List<String>> response) {
                 if (call.isExecuted()) {
                     List<String> topStoryIds = response.body();
                     for (int i = 0; i < topStoryIds.size(); i++) {
-                        mHackerNewsService.getStory(topStoryIds.get(i)).enqueue(new Callback<Story>() {
+                        mHackerNewsServiceClient.getItem(Integer.parseInt(topStoryIds.get(i))).enqueue(new Callback<Item>() {
                             @Override
-                            public void onResponse(Call<Story> call, Response<Story> response) {
+                            public void onResponse(Call<Item> call, Response<Item> response) {
                                 if (isViewAttached() && call.isExecuted()) {
                                     mView.hideLoading();
                                     mView.addData(response.body());
@@ -57,7 +44,7 @@ public class NewsListPresenter {
                             }
 
                             @Override
-                            public void onFailure(Call<Story> call, Throwable t) {
+                            public void onFailure(Call<Item> call, Throwable t) {
                                 if (isViewAttached()) {
                                     mView.showError(t);
                                 }

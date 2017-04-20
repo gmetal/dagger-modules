@@ -1,10 +1,10 @@
 package gr.kcodex.daggermodules.ui.mvp;
 
-import gr.kcodex.daggermodules.io.model.Story;
+import gr.kcodex.applib.io.model.Item;
 
-public interface NewsListView {
+public interface BaseItemListView {
 
-    void addData(Story story);
+    void addData(Item item);
 
     void showLoading();
 
@@ -12,4 +12,3 @@ public interface NewsListView {
 
     void showError(Throwable t);
 }
-

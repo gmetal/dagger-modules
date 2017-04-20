@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:layout_margin="@dimen/medium_margin"
+              android:orientation="vertical"
+              tools:context="gr.kcodex.daggermodules.ui.NewsDetailActivity">
+
+    <TextView
+        android:id="@+id/news_detail_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/small_margin"
+        android:layout_marginTop="@dimen/small_margin"
+        android:textSize="16sp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/news_detail_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/small_margin"
+        android:layout_marginTop="@dimen/small_margin"
+        android:text="TextView"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/small_margin"
+        android:layout_marginTop="@dimen/small_margin"
+        android:text="Comments"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/news_detail_comment_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"/>
+
+    <ProgressBar
+        android:id="@+id/comment_list_progress_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:indeterminate="true"
+        android:visibility="visible"/>
+
+    <TextView
+        android:id="@+id/comment_list_empty_state"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="No comments found"
+        android:visibility="gone"/>
+
+</LinearLayout>
